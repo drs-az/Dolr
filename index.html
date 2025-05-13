@@ -7,33 +7,33 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #000;
+      background-color: #000;
       color: #33ff33;
       font-family: 'Courier New', monospace;
       font-size: 16px;
-      line-height: 1.4;
     }
     .terminal {
+      width: 90%;
       max-width: 800px;
+      height: 400px;
       margin: 50px auto;
       padding: 20px;
       border: 2px solid #33ff33;
-      min-height: 300px;
-      position: relative;
-      overflow-x: hidden;
+      box-sizing: border-box;
       overflow-y: auto;
+      background-color: #000;
     }
     .line {
+      display: block;
       white-space: pre-wrap;
       word-break: break-word;
-      font-size: 16px;
+      margin: 0;
     }
     .caret {
       display: inline-block;
       width: 10px;
       height: 1em;
-      background: #33ff33;
-      margin-left: 2px;
+      background-color: #33ff33;
       animation: blink 1s steps(2, start) infinite;
       vertical-align: bottom;
     }
@@ -43,60 +43,58 @@
   </style>
 </head>
 <body>
-  <div class="terminal" id="terminal"></div>  <script>
+  <div class="terminal" id="terminal"></div>
+  <script>
     const terminal = document.getElementById('terminal');
-    const lines = [
+    const content = [
       'Dolr (DOLR)',
       '> Welcome. Dolr is live. Starting price: $1.00',
       '> Mission: Keep your purchasing power stable against US inflation.',
       '> Features:',
-      ' ⦿ Basket-backed (WBTC, USDC yield, PAXG)',
-      ' ⦿ Transparent public Treasury & supply',
-      ' ⦿ Simple off-chain minting model',
+      '  ⦿ Basket-backed: WBTC, USDC yield, PAXG',
+      '  ⦿ Transparent Treasury & supply',
+      '  ⦿ Off-chain, wire-to-mint model',
       '> Get started:',
-      ' ⚡ Buy DOLR | 📄 Whitepaper | 🛠 Developers | 💬 Community'
-    ];
+      '  ⚡ Buy DOLR | 📄 Whitepaper | 🛠 Developers | 💬 Community'
+    ];let row = 0;
+let col = 0;
 
-    let lineIndex = 0;
-    let charIndex = 0;
-    const typingSpeed = 50;
-    const lineDelay = 300;
-    let cursor = null;
+function typeWriter() {
+  if (row >= content.length) {
+    showCursor();
+    return;
+  }
+  let lineElem = document.getElementById('line-' + row);
+  if (!lineElem) {
+    lineElem = document.createElement('div');
+    lineElem.id = 'line-' + row;
+    lineElem.className = 'line';
+    terminal.appendChild(lineElem);
+  }
+  const text = content[row];
+  if (col < text.length) {
+    lineElem.textContent += text.charAt(col);
+    col++;
+    setTimeout(typeWriter, 50);
+  } else {
+    row++;
+    col = 0;
+    setTimeout(typeWriter, 200);
+  }
+}
 
-    function type() {
-      if (lineIndex >= lines.length) {
-        showCursor();
-        return;
-      }
-      const currentLine = lines[lineIndex];
-      if (charIndex < currentLine.length) {
-        let span = terminal.querySelector(`#line-${lineIndex}`);
-        if (!span) {
-          span = document.createElement('div');
-          span.id = `line-${lineIndex}`;
-          span.className = 'line';
-          terminal.appendChild(span);
-        }
-        span.textContent += currentLine.charAt(charIndex);
-        charIndex++;
-        setTimeout(type, typingSpeed);
-      } else {
-        lineIndex++;
-        charIndex = 0;
-        setTimeout(type, lineDelay);
-      }
-    }
+function showCursor() {
+  const cursorLine = document.createElement('div');
+  cursorLine.className = 'line';
+  cursorLine.textContent = '> ';
+  const caret = document.createElement('span');
+  caret.className = 'caret';
+  cursorLine.appendChild(caret);
+  terminal.appendChild(cursorLine);
+}
 
-    function showCursor() {
-      const cursorLine = document.createElement('div');
-      cursorLine.className = 'line';
-      cursor = document.createElement('span');
-      cursor.className = 'caret';
-      cursorLine.appendChild(document.createTextNode('>'));
-      cursorLine.appendChild(cursor);
-      terminal.appendChild(cursorLine);
-    }
+document.addEventListener('DOMContentLoaded', typeWriter);
 
-    document.addEventListener('DOMContentLoaded', () => type());
-  </script></body>
+  </script>
+</body>
 </html>
