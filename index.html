@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dolr</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Retro terminal skin */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #33ff33;
+      font-family: 'Courier New', monospace;
+      line-height: 1.4;
+    }
+    .terminal {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 2px solid #33ff33;
+    }
+    h1 {
+      margin: 0 0 20px;
+      font-size: 2em;
+      color: #33ff33;
+    }
+    p, li {
+      margin: 0 0 10px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    a {
+      color: #33ff33;
+      text-decoration: underline;
+    }
+    /* Blinking caret */
+    .caret {
+      display: inline-block;
+      width: 10px;
+      background: #33ff33;
+      margin-left: 2px;
+      animation: blink 1s steps(2, start) infinite;
+    }
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <h1>Dolr</h1>
+    <p>> Welcome. Dolr is coming. Starting price: $1.00</p>
+    <p>> Mission: Keep your purchasing power stable against US inflation.</p>
+    <p>> Get started:</p>
+    <ul>
+      <li><a href="#">⚡ Buy DOLR</a></li>
+      <li><a href="#">📄 Whitepaper</a></li>
+      <li><a href="#">💬 Community</a></li>
+    </ul>
+    <p>></p>
+    <p>>_ <span class="caret"></span></p>
+  </div>
+</body>
+</html>
