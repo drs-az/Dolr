@@ -11,23 +11,21 @@
       color: #33ff33;
       font-family: 'Courier New', monospace;
       font-size: 16px;
+      line-height: 1.4;
     }
     .terminal {
       width: 90%;
       max-width: 800px;
-      height: 400px;
       margin: 50px auto;
       padding: 20px;
       border: 2px solid #33ff33;
       box-sizing: border-box;
-      overflow-y: auto;
       background-color: #000;
     }
     .line {
-      display: block;
       white-space: pre-wrap;
       word-break: break-word;
-      margin: 0;
+      margin: 0 0 8px;
     }
     .caret {
       display: inline-block;
@@ -43,58 +41,17 @@
   </style>
 </head>
 <body>
-  <div class="terminal" id="terminal"></div>
-  <script>
-    const terminal = document.getElementById('terminal');
-    const content = [
-      'Dolr (DOLR)',
-      '> Welcome. Dolr is live. Starting price: $1.00',
-      '> Mission: Keep your purchasing power stable against US inflation.',
-      '> Features:',
-      '  ⦿ Basket-backed: WBTC, USDC yield, PAXG',
-      '  ⦿ Transparent Treasury & supply',
-      '  ⦿ Off-chain, wire-to-mint model',
-      '> Get started:',
-      '  ⚡ Buy DOLR | 📄 Whitepaper | 🛠 Developers | 💬 Community'
-    ];let row = 0;
-let col = 0;
-
-function typeWriter() {
-  if (row >= content.length) {
-    showCursor();
-    return;
-  }
-  let lineElem = document.getElementById('line-' + row);
-  if (!lineElem) {
-    lineElem = document.createElement('div');
-    lineElem.id = 'line-' + row;
-    lineElem.className = 'line';
-    terminal.appendChild(lineElem);
-  }
-  const text = content[row];
-  if (col < text.length) {
-    lineElem.textContent += text.charAt(col);
-    col++;
-    setTimeout(typeWriter, 50);
-  } else {
-    row++;
-    col = 0;
-    setTimeout(typeWriter, 200);
-  }
-}
-
-function showCursor() {
-  const cursorLine = document.createElement('div');
-  cursorLine.className = 'line';
-  cursorLine.textContent = '> ';
-  const caret = document.createElement('span');
-  caret.className = 'caret';
-  cursorLine.appendChild(caret);
-  terminal.appendChild(cursorLine);
-}
-
-document.addEventListener('DOMContentLoaded', typeWriter);
-
-  </script>
+  <div class="terminal">
+    <div class="line">Dolr (DOLR)</div>
+    <div class="line">&gt; Welcome. Dolr is live. Starting price: $1.00</div>
+    <div class="line">&gt; Mission: Keep your purchasing power stable against US inflation.</div>
+    <div class="line">&gt; Features:</div>
+    <div class="line">  ⦿ Basket-backed: WBTC, USDC yield, PAXG</div>
+    <div class="line">  ⦿ Transparent Treasury & supply</div>
+    <div class="line">  ⦿ Off-chain, wire-to-mint model</div>
+    <div class="line">&gt; Get started:</div>
+    <div class="line">  ⚡ Buy DOLR | 📄 Whitepaper | 🛠 Developers | 💬 Community</div>
+    <div class="line">&gt; <span class="caret"></span></div>
+  </div>
 </body>
 </html>
