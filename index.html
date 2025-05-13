@@ -19,10 +19,12 @@
       border: 2px solid #33ff33;
       min-height: 300px;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     .line {
-      white-space: pre;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
     .caret {
       display: inline-block;
@@ -53,8 +55,8 @@
 
     let lineIndex = 0;
     let charIndex = 0;
-    const typingSpeed = 50; // ms per char
-    const lineDelay = 300; // ms between lines
+    const typingSpeed = 50;
+    const lineDelay = 300;
 
     function type() {
       if (lineIndex >= lines.length) {
