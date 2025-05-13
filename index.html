@@ -11,6 +11,7 @@
       color: #33ff33;
       font-family: 'Courier New', monospace;
       line-height: 1.4;
+      font-size: 16px;
     }
     .terminal {
       max-width: 800px;
@@ -29,9 +30,11 @@
     .caret {
       display: inline-block;
       width: 10px;
+      height: 1em;
       background: #33ff33;
       margin-left: 2px;
       animation: blink 1s steps(2, start) infinite;
+      vertical-align: bottom;
     }
     @keyframes blink {
       to { visibility: hidden; }
@@ -50,15 +53,14 @@
       ' ⦿ Transparent public Treasury & supply',
       ' ⦿ Simple off-chain minting model',
       '> Get started:',
-      ' ⚡ Buy DOLR',
-      ' 📄 Whitepaper',
-      ' 💬 Community'
+      ' ⚡ Buy DOLR | 📄 Whitepaper | 🛠 Developers | 💬 Community'
     ];
 
     let lineIndex = 0;
     let charIndex = 0;
     const typingSpeed = 50;
     const lineDelay = 300;
+    let cursor = null;
 
     function type() {
       if (lineIndex >= lines.length) {
@@ -85,9 +87,13 @@
     }
 
     function showCursor() {
-      const cursor = document.createElement('span');
+      const cursorLine = document.createElement('div');
+      cursorLine.className = 'line';
+      cursor = document.createElement('span');
       cursor.className = 'caret';
-      terminal.appendChild(cursor);
+      cursorLine.appendChild(document.createTextNode('>'));
+      cursorLine.appendChild(cursor);
+      terminal.appendChild(cursorLine);
     }
 
     document.addEventListener('DOMContentLoaded', () => type());
